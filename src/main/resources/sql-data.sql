@@ -4,7 +4,7 @@ CREATE DATABASE ims;
 USE ims;
 
 CREATE TABLE Customer(
-	customerId int auto_increment,
+	id int auto_increment,
     firstName varchar(20) NOT NULL,
     surname varchar(40) NOT NULL,
     PRIMARY KEY (id)
@@ -23,5 +23,15 @@ CREATE TABLE Orders (
     itemQuantity int NOT NULL,
     total float NOT NULL,
     PRIMARY KEY (ordersId),
-    FOREIGN KEY (customerId) REFERENCES customer(customerId)
+    FOREIGN KEY (customerId) REFERENCES customer(id)
     );
+    
+CREATE TABLE Orders_Items (
+	ordersItemsId int auto_increment,
+	ordersId int NOT NULL,
+	itemId int NOT NULL,
+	PRIMARY KEY (ordersItemsId),
+	FOREIGN KEY (ordersId) REFERENCES orders(ordersId),
+	FOREIGN KEY (itemId) REFERENCES item(itemId)
+)
+    

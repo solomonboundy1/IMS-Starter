@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 public class Orders_Items {
 	
-	int ordersItemsId;
+	int ordersItemsId; 
 	Order orderId;
 	Item itemId;
 	public Orders_Items(int ordersItemsId, Order orderId, Item itemId) {

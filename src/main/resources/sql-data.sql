@@ -17,6 +17,11 @@ CREATE TABLE Item (
 	PRIMARY KEY (itemId)
 	);
 	
-CREATE TABLE Order (
-	orderId int auto_increment,
-	
+CREATE TABLE Orders (
+	ordersId int auto_increment,
+    customerId int NOT NULL,
+    itemQuantity int NOT NULL,
+    total float NOT NULL,
+    PRIMARY KEY (ordersId),
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
+    );

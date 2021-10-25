@@ -4,18 +4,18 @@ public class Item {
 
 	private Long itemId;
 	private String itemName;
-	private float price;
+	private Double price;
 
-	public Item(Long itemId, String itemName, float price) {
+	public Item(Long itemId, String itemName, Double price) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.price = price;
 
 	}
 
-	public Item(String itemName, float price) {
+	public Item(String itemName, Double price2) {
 		this.itemName = itemName;
-		this.price = price;
+		this.price = price2;
 	}
 
 	public Long getItemId() {
@@ -34,11 +34,11 @@ public class Item {
 		this.itemName = itemName;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

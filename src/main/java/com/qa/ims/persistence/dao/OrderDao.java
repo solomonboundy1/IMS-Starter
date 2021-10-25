@@ -35,7 +35,7 @@ public class OrderDao implements Dao<Order> {
 		
 		Long itemId = resultSet.getLong("itemId");
 		String itemName = resultSet.getString("itemName");
-		float price = resultSet.getFloat("price");
+		Double price = resultSet.getDouble("price");
 		Item item = new Item(itemId, itemName, price);
 		
 		int itemQuantity = resultSet.getInt("itemQuantity");

@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,9 +21,11 @@ public class OrderDao implements Dao<Order> {
 	public static final Logger LOGGER = LogManager.getLogger();
 	
 	
+	
 
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
+		
 		Long orderId = resultSet.getLong("ordersId");
 		
 		Long customerId = resultSet.getLong("customerId");
@@ -70,23 +73,103 @@ public class OrderDao implements Dao<Order> {
 		}
 		return null;
 	}
+	
+	
+	public Order readLatest() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY id DESC LIMIT 1");) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+		
+	}
 
 	@Override
 	public Order create(Order t) {
-		// TODO Auto-generated method stub
+		
+		
+		
+		
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO orders(customerId) VALUES (?)");) {
+			statement.setLong(1, t.getCustomer().getId());
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
 	public Order update(Order t) {
-		// TODO Auto-generated method stub
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE orders SET itemQuantity = ?, total = ? WHERE id = ?");) {
+			statement.setInt(1, t.getItemQuantity());
+			statement.setFloat(2, t.getTotal());
+			statement.setLong(3, t.getOrdersId());
+			statement.executeUpdate();
+			return read(t.getOrdersId());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
-
+	
+	public Order addItem(Order t, Item u) {
+		
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO orders_items(ordersId, itemId ) VALUES (?, ?)");) {
+			statement.setLong(1, t.getOrdersId());
+			statement.setLong(2, u.getItemId());
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	public Order deleteItem(Item u) {
+		
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM orders_items  WHERE itemId = ?");) {
+			statement.setLong(1, u.getItemId());
+			statement.executeUpdate();
+			return null;
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+		
+	}
+	
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE orderId = ?");) {
+			statement.setLong(1, id);
+			return statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return 0;
 	}
+
+	
 
 }

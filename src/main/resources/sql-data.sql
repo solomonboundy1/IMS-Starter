@@ -20,8 +20,8 @@ CREATE TABLE Item (
 CREATE TABLE Orders (
 	ordersId int auto_increment,
     customerId int NOT NULL,
-    itemQuantity int NOT NULL,
-    total float NOT NULL,
+    itemQuantity int,
+    total float,
     PRIMARY KEY (ordersId),
     FOREIGN KEY (customerId) REFERENCES customer(id)
     );

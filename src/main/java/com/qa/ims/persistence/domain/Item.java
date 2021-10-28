@@ -1,21 +1,27 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class Item {
 
 	private Long itemId;
 	private String itemName;
-	private float price;
+	private Double price;
 
-	public Item(Long itemId, String itemName, float price) {
+	public Item(Long itemId, String itemName, Double price) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.price = price;
 
 	}
 
-	public Item(String itemName, float price) {
+	public Item(String itemName, Double price2) {
 		this.itemName = itemName;
-		this.price = price;
+		this.price = price2;
+	}
+	
+	public Item() {
+		
 	}
 
 	public Long getItemId() {
@@ -34,11 +40,11 @@ public class Item {
 		this.itemName = itemName;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -46,5 +52,25 @@ public class Item {
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", price=" + price + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(itemId, itemName, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		return Objects.equals(itemId, other.itemId) && Objects.equals(itemName, other.itemName)
+				&& Objects.equals(price, other.price);
+	}
+	
+	
 
 }

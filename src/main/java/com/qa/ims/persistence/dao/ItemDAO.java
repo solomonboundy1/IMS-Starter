@@ -22,7 +22,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long itemId = resultSet.getLong("itemId");
 		String itemName = resultSet.getString("itemName");
-		float price = resultSet.getFloat("price");
+		Double price = resultSet.getDouble("price");
 		return new Item(itemId, itemName, price);
 	}
 	
@@ -48,7 +48,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Item ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM Item ORDER BY itemId DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -62,8 +62,10 @@ public class ItemDAO implements Dao<Item> {
 	@Override
 	public Item read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM Item WHERE itemId = ?");) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM Item WHERE itemId = ?");) {
+			statement.setLong(1, id);
+			ResultSet resultSet = statement.executeQuery();
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -79,7 +81,7 @@ public class ItemDAO implements Dao<Item> {
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO Item(itemName, price) VALUES (?, ?)");) {
 			statement.setString(1, t.getItemName());
-			statement.setFloat(2, t.getPrice());
+			statement.setDouble(2, t.getPrice());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -95,7 +97,7 @@ public class ItemDAO implements Dao<Item> {
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE Item SET itemName = ?, price = ? WHERE itemId = ?");) {
 			statement.setString(1, t.getItemName());
-			statement.setFloat(2, t.getPrice());
+			statement.setDouble(2, t.getPrice());
 			statement.setLong(3, t.getItemId());
 			statement.executeUpdate();
 			return read(t.getItemId());

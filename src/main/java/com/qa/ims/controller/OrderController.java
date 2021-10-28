@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.OrderDao;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
@@ -43,13 +44,15 @@ public class OrderController implements CrudController<Order> {
 	public Order create() {
 		LOGGER.info("Please enter the customer ID");
 		Long custId = utils.getLong();
+		CustomerDAO customerDAO = new CustomerDAO();
+		Customer customer = customerDAO.read(custId);
+		Order newOrder = new Order(customer);
 		
-		Customer customer = new Customer();
-		customer.setId(custId);
+		Order order = orderDao.create(newOrder);
 		
-		Order order = new Order(customer);
+		return order;
 		
-		return orderDao.create(order);
+		
 	}
 
 	

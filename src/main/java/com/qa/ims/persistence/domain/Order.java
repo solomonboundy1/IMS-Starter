@@ -49,6 +49,17 @@ public class Order {
 		this.ordersId = ordersId;
 		this.item = item;
 	}
+	
+	
+
+
+	public Order(Long ordersId, Customer customer) {
+		super();
+		this.ordersId = ordersId;
+		this.customer = customer;
+	}
+
+
 
 
 	public Long getOrdersId() {

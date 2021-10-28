@@ -56,6 +56,33 @@ public class OrderDAOTest {
 		assertEquals(new Order(ID, cus, 1L, 4.99, item), DAO.read(ID));
 	}
 	
+	@Test
+	public void testUpdate() {
+		final Order updated = new Order(1L, 1L, 1D);
+		assertEquals(updated, DAO.update(updated));
+
+	}
+	
+	@Test
+	public void  testAddItem() {
+		final Item item = new Item();
+		final Order updated = new Order(1L, item);
+		assertEquals(updated, DAO.addItem(updated));
+	}
+	
+	@Test
+	public void testDeleteItem() {
+		final Item item = new Item();
+		final Order updated = new Order(1L, item);
+		assertEquals(updated, DAO.addItem(updated));
+	}
+	
+	
+	@Test
+	public void testDelete() {
+		assertEquals(1, DAO.delete(1));
+	}
+	
 	
 }	
 

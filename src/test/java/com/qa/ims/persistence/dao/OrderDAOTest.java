@@ -27,7 +27,7 @@ public class OrderDAOTest {
 	
 	@Test
 	public void testCreate() {
-		final Customer cust = new Customer();
+		final Customer cust = new Customer(1l, "jordan", "harrison");
 		final Order created = new Order(cust);
 		assertEquals(created, DAO.create(created));
 	}
@@ -50,10 +50,10 @@ public class OrderDAOTest {
 	
 	@Test
 	public void testRead() {
-		final Customer cus = new Customer();
-		final Item item = new Item();
+		final Customer cus = new Customer(1l, "Sol", "B");
+		
 		final Long ID = 1L;
-		assertEquals(new Order(ID, cus, 1L, 4.99, item), DAO.read(ID));
+		assertEquals(new Order(ID, cus), DAO.read(ID));
 	}
 	
 	@Test
@@ -61,7 +61,7 @@ public class OrderDAOTest {
 		final Order updated = new Order(1L, 1L, 1D);
 		assertEquals(updated, DAO.update(updated));
 
-	}
+	} 
 	
 	@Test
 	public void  testAddItem() {
@@ -72,7 +72,7 @@ public class OrderDAOTest {
 	
 	@Test
 	public void testDeleteItem() {
-		final Item item = new Item();
+		final Item item = new Item(1L, "item1", 4.99);
 		final Order updated = new Order(1L, item);
 		assertEquals(updated, DAO.addItem(updated));
 	}

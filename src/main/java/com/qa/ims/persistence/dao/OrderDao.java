@@ -29,7 +29,7 @@ public class OrderDao implements Dao<Order> {
 		Long orderId = resultSet.getLong("ordersId");
 		
 		Long customerId = resultSet.getLong("customerId");
-		String fname = resultSet.getString("firstName");
+		String fname = resultSet.getString("first_name");
 		String sname = resultSet.getString("surname");
 		Customer customer = new Customer(customerId, fname, sname);
 		
@@ -66,7 +66,7 @@ public class OrderDao implements Dao<Order> {
 	public Order read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders WHERE orderId = ?");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders JOIN customers ON orders.customerId = customers.id WHERE ordersId = ? ");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -80,7 +80,7 @@ public class OrderDao implements Dao<Order> {
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY ordersId DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -161,7 +161,7 @@ public class OrderDao implements Dao<Order> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE orderId = ?");) {
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE ordersId = ?");) {
 			statement.setLong(1, id);
 			return statement.executeUpdate();
 		} catch (Exception e) {

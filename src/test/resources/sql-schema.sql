@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `Item` (
 	
 
 
-CREATE TABLE `ims`.`Orders` (
+CREATE TABLE `Orders` (
 	`ordersId` int auto_increment,
     `customerId` int NOT NULL,
     `itemQuantity` int,
@@ -34,7 +34,7 @@ CREATE TABLE `ims`.`Orders` (
     
 
     
-CREATE TABLE `ims`.`Orders_Items` (
+CREATE TABLE `Orders_Items` (
 	`ordersItemsId` int auto_increment,
 	`ordersId` int NOT NULL,
 	`itemId` int NOT NULL,

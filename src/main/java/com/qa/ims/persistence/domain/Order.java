@@ -12,6 +12,17 @@ public class Order {
 	
 	
 	
+	public Order(Long ordersId, Long itemQuantity, Double total, Item item) {
+		
+		this.ordersId = ordersId;
+		this.itemQuantity = itemQuantity;
+		this.total = total;
+		this.item = item;
+	}
+
+
+
+
 	public Order(Long orderId, Customer customer, Long itemQuantity2, Double total2, Item item) {
 		this.ordersId = orderId;
 		this.customer = customer;
@@ -57,6 +68,16 @@ public class Order {
 		super();
 		this.ordersId = ordersId;
 		this.customer = customer;
+	}
+
+
+
+
+	public Order(Long ordersId, Customer customer, Long itemQuantity, Double total) {
+		this.ordersId = ordersId;
+		this.customer = customer;
+		this.itemQuantity = itemQuantity;
+		this.total = total;
 	}
 
 

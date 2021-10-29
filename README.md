@@ -1,7 +1,6 @@
-Coverage: 34%
-# Project Title
+# IMS Fundamental Project
 
-One Paragraph of project description goes here
+This project is a management system made to to add, remove and update customers, items and orders into a database in an easy and tidy way. It has features such as the total of the order as well as the item quantity. there will be four separate entities within the database that allows us access to customer information, order information item information and an 'orders_items' entity that allows us to add or remove items from an order as well as view every item added to each order.
 
 ## Getting Started
 
@@ -10,6 +9,10 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 What things you need to install the software and how to install them
+In order to  get started with the project you will need to download and install the following:
+- An IDE of your choice that supports Java (Eclipse is recommended)
+- MySQL as well as MySQL Workbench
+
 
 ```
 Give examples
@@ -35,21 +38,49 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+We use two testing frameworks to test the functionality of the program; JUnit and Mockito.
+
+JUnit is used for testing individual units or methods of classes, whereas mockito is used for integration testing to test the functionality between the SQL Database and the code in the java files. 
+
+To run the unit tests, right click on the class in which the unit you would like to test is and click run as, and then JUnit test.
+
+To run an integration test, do the same. 
+This will also show the coverage percentage of which tests have passed and which tests have failed.
 
 ### Unit Tests 
+We use JUnit for testing units.
 
-Explain what these tests test, why and how to run them
+Unit tests test the functionality of an individual method of a class, if the method is not working correctly you will see a red bar and an error along side a message within the console outlining the issue. Using the 'assertEquals' method, we are able to compare the outcome of the first argument within the parenthesis to the second argument, ensuring that they output the same outcome. 
 
 ```
-Give an example
+Unit test example:
+
+	@Test
+	public void testCreate() {
+		final Customer cust = new Customer();
+		final Order created = new Order(cust);
+		assertEquals(created, DAO.create(created));
+	}
 ```
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
+We use Mockito to for integration tests. We use this to test the functionality between the database and the java classes of the project.
 
 ```
-Give an example
+Here is an example of the syntax
+
+	@Test
+	public void testReadAll() {
+		final Customer customer = new Customer(1L, "jordan", "harrison");
+		List<Order> orders = new ArrayList<>();
+		orders.add(new Order(customer));
+
+		Mockito.when(dao.readAll()).thenReturn(orders);
+
+		assertEquals(orders, controller.readAll());
+
+		Mockito.verify(dao, Mockito.times(1)).readAll();
+	}
 ```
 
 ### And coding style tests
@@ -84,6 +115,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Chris Perrins
+* Jordan Harrison
+* Jordan Bendeblaid

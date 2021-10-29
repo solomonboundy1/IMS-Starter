@@ -12,29 +12,24 @@ What things you need to install the software and how to install them
 In order to  get started with the project you will need to download and install the following:
 - An IDE of your choice that supports Java (Eclipse is recommended)
 - MySQL as well as MySQL Workbench
+- JUnit
+- Mockito
+
+To install Eclipse, follow this link: https://www.eclipse.org/ide/ and click on the download button. Once downloaded, go through the setup.
+
+To install MySQL, follow this link: https://dev.mysql.com/downloads/installer/ and click on the SECOND download button. Once downloaded follow the setup process ensuring that you download MySQL Workbench and MySQL Command Line Client
+
+To install Git, you need to follow this link https://git-scm.com/downloads and choose your Operating system
 
 
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Fork the IMS
+create a folder for the project
+right click the folder and click git bash here
+next, clone the project down to your computer by following the commands on github
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
@@ -81,19 +76,7 @@ Here is an example of the syntax
 
 		Mockito.verify(dao, Mockito.times(1)).readAll();
 	}
-```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -101,9 +84,11 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning.
+We use [Git](https://git-scm.com/) for versioning.
 
 ## Authors
+
+Solomon Boundy
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
 
@@ -118,3 +103,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 * Chris Perrins
 * Jordan Harrison
 * Jordan Bendeblaid
+* JHarry444
